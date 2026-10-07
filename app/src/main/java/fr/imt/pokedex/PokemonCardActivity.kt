@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import fr.imt.pokedex.PokedexListActivity.Companion.getAssetsDrawable
 import fr.imt.pokedex.model.Pokemon
+import fr.imt.pokedex.data.DBHelper
 class PokemonCardActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -13,9 +14,12 @@ class PokemonCardActivity: AppCompatActivity() {
         val bundle: Bundle? = intent.extras
         bundle?.let {
             bundle.apply {
-                val pokemon: Pokemon? = getParcelable("pokemon")
-                if (pokemon != null) {
-                    loadPokemon(pokemon)
+                val pokemonId = intent.getIntExtra("pokemonId", -1)
+                if (pokemonId != -1) {
+                    val pokemon = DBHelper(this@PokemonCardActivity).getPokemonById(pokemonId)
+                    if (pokemon != null) {
+                        loadPokemon(pokemon)
+                    }
                 } else {
                     finish()
                 }

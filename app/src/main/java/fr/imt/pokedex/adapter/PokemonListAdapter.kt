@@ -45,9 +45,9 @@ List<Pokemon>): RecyclerView.Adapter<PokemonListAdapter.ItemViewHolder>() {
         } else {
             holder.type2View.visibility = View.GONE
         }
-        holder.imageView.setOnClickListener { _ ->
+        holder.itemView.setOnClickListener { _ ->
             val intent = Intent(context, PokemonCardActivity::class.java)
-            intent.putExtra("pokemon", item)
+            intent.putExtra("pokemonId", item.id)
             context.startActivity(intent)
         }
     }
